@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.wishlist{
+    margin-top: 100px;
+}
+.wish{
+    /* border: 1px solid red; */
+    width: 80%;
+    margin: auto;
+}
+.wish-h1{
+    padding: 30px;
+}
+.wish-flex{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.wish-item{
+    width: 17%;
+    /* border: 1px solid grey; */
+    border-radius: 5px;
+}
+.wish-item:hover{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.wish-item img{
+width: 100%;
+height: 280px;
+}
+.wish-btn{
+    cursor: pointer;
+    height: 32px;
+    padding: 0px 15px;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    border:none;
+    outline: none;
+    color:white;
+    margin-top: 5px;
+    background: none rgb(218, 28, 92);
+    margin-bottom: 12px;
+}
+.wish-text{
+    margin: auto;
+    width: 90%;
+}

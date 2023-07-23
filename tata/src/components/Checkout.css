@@ -1,0 +1,125 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.check-parent{
+    background-color: #ECECEC;
+    padding-bottom: 50px;
+}
+.checkout{
+    /* border: 1px solid red; */
+    width: 80%;
+    margin: auto;
+}
+.check-title{
+padding: 30px 0;
+}
+.check-flex{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.check-left{
+    width: 65%;
+    /* border: 1px solid blue; */
+    padding: 20px;
+    background-color: white;
+}
+.check-right{
+    width: 30%;
+    /* border: 1px solid green; */
+    background-color: #ECECEC
+}
+.check-span1{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid black;
+    border-radius: 50%;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    margin-right: 10px;
+}
+.check-sec1{
+    display: flex;
+    justify-content: space-between;
+}
+.check-sec11{
+    display: flex;
+}
+.check-sec12{
+border-bottom: 1px solid grey;
+font-size: 14px;
+font-weight: 400;
+}
+.check-sec2{
+    display: flex;
+    justify-content: space-between;
+}
+.check-sec21{
+    width: 48%;
+    line-height: 65px;
+    position: relative;
+}
+.check21-sec1{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 8px;
+    margin-top: 30px;
+
+}
+.input1{
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid grey;
+}
+.in-width{
+    width: 48%;
+}
+.width20{
+    width: 20px;
+    height:20px;
+}
+.check-sec3{
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+ 
+}
+.b{
+    position: absolute;
+    top:217.5px;
+    left:8px;
+    font-size: 14px;
+}
+.check-sec4{
+    margin-top: 20px;
+    padding: 30px 15px 30px 15px;
+    border-top: 1px solid #ececec;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.check-btn1{
+    cursor: pointer;
+    height: 40px;
+    width: 175px;
+    padding: 0px 15px;
+    border-radius: 20px;
+    background: none rgb(255, 23, 68);
+    border: 1px solid rgb(255, 23, 68);
+    color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 40px;
+}
