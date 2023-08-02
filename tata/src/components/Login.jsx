@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({logged,setLogged}) => {
+const Login = ({logged,setLogged,show,setShow}) => {
     const[data,setData]=useState({email:"",password:""})
     const router=useNavigate();
     
@@ -49,7 +49,7 @@ const Login = ({logged,setLogged}) => {
       
         <input type="password" name="password" onChange={handleChange} value={data.password} className="input" placeholder='Enter your Password'/><br/>
         <input type="submit" value="Login"/>
-        <p style={{fontSize:"15px",marginTop:"5px",fontWeight:600}}>New member <Link to="/register">Register</Link></p>
+        <p style={{fontSize:"15px",marginTop:"5px",fontWeight:600}}>New member? <span onClick={()=>setShow(!show)}>Register</span></p>
     </form>
     <i class="fa-solid fa-xmark form-cross fa-xl" onClick={()=>setLogged(!logged)}></i>
 </div>

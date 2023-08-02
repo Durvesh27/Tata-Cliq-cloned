@@ -3,9 +3,11 @@ import './Home.css'
 import logo from './tataLogo.png'
 import { useState } from 'react'
 import Login from './Login'
+import Register from './Register'
 function Navbar() {
   const [toggle, setToggle] = useState(false)
   const [getLogged, setGetLogged] = useState(false)
+  const[show ,setShow]=useState(true)
   function getProfile() {
     setToggle(!toggle)
   }
@@ -169,8 +171,12 @@ function Navbar() {
       </div>
     </div> */}
       {
+        show?
+
         getLogged &&
-        <Login logged={getLogged} setLogged={setGetLogged} />
+        <Login logged={getLogged} setLogged={setGetLogged} show={show} setShow={setShow}/>:
+        getLogged &&
+        <Register logged={getLogged} setLogged={setGetLogged} show={show} setShow={setShow}/>
       }
     </div>
   )
