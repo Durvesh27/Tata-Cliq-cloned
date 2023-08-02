@@ -1,17 +1,78 @@
+import { useParams } from 'react-router-dom';
 import './MensSngle.css'
+import Navbar from './Navbar'
+import SData from './SData';
+import { useState } from 'react';
+import { useEffect } from 'react';
+
+
 const MensSingle=()=>{
+const[singleData,setSingleData]=useState()
+const[userEmail,setUserEmail]=useState("")
+const {userId}=useParams();
+
+
+useEffect(()=>{
+    SData.forEach((data)=>{
+        if(data?.id==userId){
+        setSingleData(data)
+    }
+})
+},[])
+
+
+// useEffect(()=>{
+//   const user=JSON.parse(localStorage.getItem("Current-User"))
+//   if(user.role==="Seller"){
+//     setUser(true)
+//   }
+// },[])
+useEffect(()=>{
+const myUser=JSON.parse(localStorage.getItem("Current"))
+setUserEmail(myUser.email)
+},[])
+// useEffect(()=>{
+// const products=JSON.parse(localStorage.getItem("Products"))
+// products.forEach((pro)=>{
+// if(pro.id===userId){
+//   setItem(pro)
+// }
+// })
+// },[])
+
+function addCart(){
+    if(userEmail){
+        let users=JSON.parse(localStorage.getItem("Users"))
+        let user=JSON.parse(localStorage.getItem("Current"))
+        for(let i=0;i<users.length;i++){
+        if(users[i].email===user?.email){
+        users[i].cart.push(singleData)
+        alert("Item Added to Cart")
+        localStorage.setItem("Users",JSON.stringify(users))
+        break;
+        }
+        }
+    }else{
+        alert("Login for Shopping")
+    }
+    
+    
+    }
+  
 return(
+    <>
+    <Navbar/>
     <div style={{marginTop:"100px",paddingTop:"30px"}}>
      <div className="main">
         <div className="left-sections">
             <div className="left1">
-            <img src="https://img.tatacliq.com/images/i11/437Wx649H/MP000000017554565_437Wx649H_202305151656271.jpeg" alt="" />
-            <img src="https://img.tatacliq.com/images/i11/437Wx649H/MP000000017554565_437Wx649H_202305151656222.jpeg" alt="" />
+            <img src={singleData?.imgsrc} alt="" />
+            <img src={singleData?.imgsrc} alt="" />
             </div>
            <div className="left2">
-           <img src="https://img.tatacliq.com/images/i11/437Wx649H/MP000000017554565_437Wx649H_202305151656283.jpeg" alt="" />
-            <img src="https://img.tatacliq.com/images/i11/437Wx649H/MP000000017554565_437Wx649H_202305151656254.jpeg" alt="" />
-            <img src="https://img.tatacliq.com/images/i11/437Wx649H/MP000000017554565_437Wx649H_202305151656235.jpeg" alt="" />
+           <img src={singleData?.imgsrc} />
+            <img src={singleData?.imgsrc} />
+            <img src={singleData?.imgsrc} />
            </div>
    
         </div>
@@ -21,13 +82,13 @@ return(
            <span style={{marginLeft:"5px"}}>Popular: Recently wishlisted 80 times</span>
             </div>
             <div className="right-sec2">
-            <h3>Puma</h3>
-            <p style={{color:"#4a4a4a",fontSize:"15px",marginTop:"3px",marginBottom:"8px"}}>Puma Black Slim Fit Printed Cotton Crew T-Shirt</p>
-            <p style={{color:"grey"}}><b style={{marginRight:"5px",color:"black"}}>Rs.749</b>MRP:<del style={{marginRight:"5px"}}>Rs.1599</del><span style={{color:"#338715",fontWeight:"600"}}>53% Off</span></p>
+            <h3>{singleData?.pri}</h3>
+            <p style={{color:"#4a4a4a",fontSize:"15px",marginTop:"3px",marginBottom:"8px"}}>{singleData?.sec}</p>
+            <p style={{color:"grey"}}><b style={{marginRight:"5px",color:"black"}}>{singleData?.price1}</b>MRP:<del style={{marginRight:"5px"}}>{singleData?.pri2}</del><span style={{color:"#338715",fontWeight:"600"}}>53% Off</span></p>
             <p style={{color:"#4a4a4a",fontSize:"12px",marginTop:"3px",marginBottom:"8px"}}>Inclusive of all Taxes</p>
             <p style={{color:"#ff1744",fontSize:"13.5px",fontWeight:"600",marginBottom:"8px"}}>Use MENSEOSS coupon to get 10% off on cart value 1999/- and above.</p>
-            <span style={{fontSize:"14px",fontWeight:600,border:"1px solid #49a862",borderRadius:"2px",padding:"2px 4px",backgroundColor:"#49a862",color:"white"}}>4<i class="fa-solid fa-star fa-xs" style={{color:"white",marginLeft:"6px"}}></i></span>
-            <span style={{marginLeft:"5px"}}><b>1</b> Rating</span>
+            <span style={{fontSize:"14px",fontWeight:600,border:"1px solid #49a862",borderRadius:"2px",padding:"2px 4px",backgroundColor:"#49a862",color:"white"}}>{singleData?.rating}<i class="fa-solid fa-star fa-xs" style={{color:"white",marginLeft:"6px"}}></i></span>
+            <span style={{marginLeft:"5px"}}><b>14</b> Rating</span>
             </div>
 <div className="right-sec3">
 <div className="sec31">
@@ -184,7 +245,7 @@ Model is 6'0"/185 cms and is wearing an M size<br/>
     <img src="https://www.tatacliq.com/src/general/components/img/WL1.svg" alt="" />
 </div>
 <button className='sec92'>Buy Now</button>
-<button className='sec93'>Add to Bag</button>
+<button className='sec93' onClick={addCart}>Add to Bag</button>
 </div>
 
         </div>
@@ -287,6 +348,7 @@ Model is 6'0"/185 cms and is wearing an M size<br/>
  </div>
  </div>
     </div>
+    </>
 )
 }
 export default MensSingle 

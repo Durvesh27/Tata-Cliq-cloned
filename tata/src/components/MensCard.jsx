@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom'
 import './Mens-Multiple-products.css'
 function MensCard(props) {
+  const router=useNavigate()
   return (
     <div style={{ width: "24%", paddingBottom: "20px" }} >
       <div style={{ display: "inline-block", position: "relative", paddingBottom: " 15px" }} className="inline">
-        <img src={props.imgsrc} style={{ width: "100%", height: "273px" }} alt="" />
+        <img src={props.imgsrc} style={{ width: "100%", height: "273px" }} alt="" onClick={(()=>router(`/mens-single-product/${props.userId}`))} />
         <div style={{ paddingLeft: "5px" }}>
           <h2 style={{ fontSize: "18px", fontWeight: 600 }}>{props.primary}</h2>
           <p style={{ fontSize: "14.5px", color: "#7A7A7A", marginBottom: "5px" }}>{props.secondary}</p>

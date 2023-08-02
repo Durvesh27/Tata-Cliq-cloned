@@ -14,6 +14,8 @@ import AccessoriesMultiple from "./AccessoriesMultiple"
 import Cart from "./Cart"
 import Checkout from "./Checkout"
 import Wishlist from "./Wishlist"
+import Register from "./Register"
+import Login from "./Login"
 
 
 function TataApp(){
@@ -30,11 +32,13 @@ function TataApp(){
      <Route exact path='/gadget-multiple-product' element={<GadgetMultiple/>}/> 
      <Route exact path='/jewellery-multiple-product' element={<JewelleryMultiple/>}/> 
      <Route exact path='/accessories-multiple-product' element={<AccessoriesMultiple/>}/> 
-     <Route exact path='/mens-single-product' element={<MensSingle/>}/> 
+     <Route exact path='/mens-single-product/:userId' element={<MensSingle/>}/> 
      <Route exact path='/profile' element={<Profile/>}/>  
      <Route exact path='/cart' element={<Cart/>}/> 
      <Route exact path='/checkout' element={<Checkout/>}/> 
      <Route exact path='/wishlist' element={<Wishlist/>}/> 
+     <Route exact path='/register' element={<Register/>}/> 
+     <Route exact path='/login' element={<Login/>}/> 
      </Routes>
 
         </>

@@ -1,8 +1,15 @@
 import './Mens-Multiple-products.css'
 import MensCard from './MensCard'
 import SData from './SData'
+import Navbar from "./Navbar"
+import { v4 as uuidv4 } from 'uuid';
 const MensMultiple = () => {
+
+
+    // console.log(SData)
     return (
+        <>
+        <Navbar/>
         <div style={{ marginTop: "100px" }}>
             <h1 className='main-1'>Men's Winter wear</h1>
             <p className='main-2'>110480 products</p>
@@ -166,12 +173,13 @@ const MensMultiple = () => {
                 <div className="right-section">
                     {
                         SData.map((val) => {
-                            return <MensCard imgsrc={val.imgsrc} primary={val.pri} secondary={val.sec} price1={val.price1} price2={val.price2} rating={val.rating} qty={val.qty} priceDisc={val.priceDisc} priceDrop={val.priceDrop} limStock={val.limStocks} />
+                            return <MensCard imgsrc={val.imgsrc} primary={val.pri} secondary={val.sec} price1={val.price1} price2={val.price2} rating={val.rating} qty={val.qty} priceDisc={val.priceDisc} priceDrop={val.priceDrop} limStock={val.limStocks} userId={val.id}/>
                         })
                     }
                 </div>
             </div>
         </div>
+        </>
     )
 }
 export default MensMultiple
