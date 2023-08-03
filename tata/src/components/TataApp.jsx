@@ -16,6 +16,7 @@ import Checkout from "./Checkout"
 import Wishlist from "./Wishlist"
 import Register from "./Register"
 import Login from "./Login"
+import AddProducts from "./AddProducts"
 
 
 function TataApp(){
@@ -39,6 +40,7 @@ function TataApp(){
      <Route exact path='/wishlist' element={<Wishlist/>}/> 
      <Route exact path='/register' element={<Register/>}/> 
      <Route exact path='/login' element={<Login/>}/> 
+     <Route exact path='/add-products' element={<AddProducts/>}/> 
      </Routes>
 
         </>

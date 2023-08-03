@@ -1,27 +1,28 @@
 import cartlogo from './tataLogo.png'
 import './Cart.css'
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useEffect } from 'react';
+import { AuthContext } from './AuthContext';
 function Cart(){
     const[Kart,setKart]=useState([])
     const[logged,setLogged]=useState(false)
     const[final,setFinal]=useState(0)
-    const user=JSON.parse(localStorage.getItem("Current"))
+    const user=JSON.parse(localStorage.getItem("Current-User"))
     const data=JSON.parse(localStorage.getItem("Users"))
-    // const{state,login,logout}=useContext(AuthContext)
+    const{state,login,logout}=useContext(AuthContext)
     const router=useNavigate()
     useEffect(() => {
-      if (user?.email) {
+      if (state?.user?.email) {
           setLogged(true);
       } else {
           setLogged(false);
       }
       },[])
-    
+    console.log(state,"State")
     
     useEffect(()=>{
-        if(user?.email){
+        if(state.user?.email){
             for(let i=0;i<data.length;i++) {
             if(data[i].email===user?.email){
             setKart(data[i].cart);
@@ -84,7 +85,7 @@ function Cart(){
 <div className='cartParent'>
     <div className="CartNav">
         <div className='logo-div'>
-        <img src={cartlogo} alt="" />
+        <img src={cartlogo} alt="" onClick={()=>router("/")}/>
         </div>
         <div className='cart-flex'>
         <div className="cart-user">

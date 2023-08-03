@@ -1,22 +1,43 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Home.css'
 import logo from './tataLogo.png'
 import { useState } from 'react'
 import Login from './Login'
 import Register from './Register'
+import { useEffect } from 'react'
+import { useContext } from 'react'
+import { AuthContext } from './AuthContext'
 function Navbar() {
+  const{logout,state}=useContext(AuthContext)
   const [toggle, setToggle] = useState(false)
   const [getLogged, setGetLogged] = useState(false)
+  const[logged,setLogged]=useState(false)
   const[show ,setShow]=useState(true)
+  // const[type,showType]=useState(false)
+  const router=useNavigate();
+  
   function getProfile() {
     setToggle(!toggle)
   }
+  
+  useEffect(()=>{
+    if(state?.user?.email){
+     setLogged(true)
+    }
+  },[state])
+  // console.log(state)
+  // useEffect(()=>{
+  // const users=JSON.parse(localStorage.getItem("Users"))
+  // if(users?.role==="Seller"){
+  //   showType(true)
+  // }
+  // },[])
   return (
     <div>
       <div className="body">
         <div className="navbar">
           <div className='left'>
-            <img src={logo} alt="" />
+            <img src={logo} alt="" onClick={()=>router("/")}/>
           </div>
           <div className='right'>
 
@@ -27,16 +48,29 @@ function Navbar() {
                 <p>Gift Card</p>
                 <p>CLiQ Care</p>
                 <p>Track Orders</p>
-                <div style={{ border: "1px solid red" }} onMouseLeave={()=>setToggle(!toggle)} >
+                <div  onMouseLeave={()=>setToggle(!toggle)} >
+{
+  logged? 
 
+                  
+                  <div onMouseEnter={getProfile} style={{display:"flex"}}>
+                  <div className="cart-user" style={{width:"20px",height:"20px",marginRight:"5px"}}>
+                  </div>
+                 <h5 style={{textDecoration:"none",color:"white",fontSize:"13px"}}>{state.user.name}</h5>
+                 {/* <i class="fa-solid fa-angle-down" style={{marginTop:"5px"}}></i> */}
+                  </div>:
                   <p onMouseEnter={getProfile} >Sign-in/Sign-up</p>
+
+}            
+
+
                   <div className='profile-box' style={toggle ? { display: "block" } : { display: "none" }}>
                     <button className='login-btn' onClick={() => setGetLogged(!getLogged)}>Login/Register</button>
                     <div className='login-flex'>
                       <div className='login-icon-img'>
                         <img src="https://www.tatacliq.com/src/general/components/img/profile.png" alt="" />
                       </div>
-                      <span style={{ color: "black" }}>My Account</span>
+                      <span style={{ color: "black" }} onClick={()=>router('/profile')}>My Account</span>
                     </div>
                     <div className='login-flex'>
                       <div className='login-icon-img'>
@@ -70,7 +104,13 @@ function Navbar() {
                         <img src="https://www.tatacliq.com/src/account/components/img/cliqCash.svg" alt="" />
 
                       </div>
-                      <span style={{ color: "black" }}>CLiQ Cash</span>
+                      {
+                        logged?
+                        <span style={{ color: "black" }} onClick={logout}>CLiQ Cash</span>:
+                        <span style={{ color: "black" }} >CLiQ Cash</span>
+                        
+                      }
+                      
                     </div>
                   </div>
 
@@ -124,12 +164,18 @@ function Navbar() {
 
               <input type="search" placeholder='Search for Categories' className='nav-ip' />
               <i className="fa-solid fa-magnifying-glass fa-lg" style={{ position: "absolute", top: "29px", left: "311px", color: "white", opacity: 0.6 }}></i>
+         
+              <div>
               <Link to='/wishlist'>
                 <i className="fa-regular fa-heart fa-2x" style={{ padding: "0 10px", color: "white" }}></i>
               </Link>
               <Link to="/cart" >
                 <i className="fa-solid fa-bag-shopping fa-2x" style={{ padding: "0 10px", color: "white" }}></i>
+               
               </Link>
+              </div>
+              
+
             </div>
           </div>
         </div>

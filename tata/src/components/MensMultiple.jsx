@@ -2,14 +2,24 @@ import './Mens-Multiple-products.css'
 import MensCard from './MensCard'
 import SData from './SData'
 import Navbar from "./Navbar"
-import { v4 as uuidv4 } from 'uuid';
+import AddProducts from './AddProducts';
+
 const MensMultiple = () => {
+// const[mensData,setMensData]=useState([])
 
+// useEffect(()=>{
+// // let data=JSON.parse(localStorage.getItem("Products"))||[];
+// // data.push(SData)
+// localStorage.setItem("Products",JSON.stringify(SData))
+// let data=JSON.parse(localStorage.getItem("Products"))
+// setMensData(data)
+// },[])
 
-    // console.log(SData)
+// console.log(mensData,"mensdata")
     return (
         <>
         <Navbar/>
+       
         <div style={{ marginTop: "100px" }}>
             <h1 className='main-1'>Men's Winter wear</h1>
             <p className='main-2'>110480 products</p>
@@ -171,6 +181,7 @@ const MensMultiple = () => {
 
                 </div>
                 <div className="right-section">
+                
                     {
                         SData.map((val) => {
                             return <MensCard imgsrc={val.imgsrc} primary={val.pri} secondary={val.sec} price1={val.price1} price2={val.price2} rating={val.rating} qty={val.qty} priceDisc={val.priceDisc} priceDrop={val.priceDrop} limStock={val.limStocks} userId={val.id}/>
@@ -179,6 +190,7 @@ const MensMultiple = () => {
                 </div>
             </div>
         </div>
+        <AddProducts/>
         </>
     )
 }

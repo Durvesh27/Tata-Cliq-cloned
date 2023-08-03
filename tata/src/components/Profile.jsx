@@ -1,7 +1,53 @@
 import Footer from './Footer'
 import Navbar from './Navbar'
+import React, { useContext, useEffect } from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from './AuthContext'
+
 import './Profile.css'
 const Profile=()=>{
+    const{login,state}=useContext(AuthContext)
+    const[userData,setUserData]=useState({})
+    const[viewProfile,setViewProfile]=useState(false)
+    const router=useNavigate()
+    useEffect(()=>{
+    const current=JSON.parse(localStorage.getItem("Current-User"))
+    if(!current)  {
+        router("/")
+    }
+    const users=JSON.parse(localStorage.getItem("Users"))
+    if(current && users){
+        users.forEach((pro)=>{
+           if( pro.email===current.email && pro.password===current.password){
+            setUserData(pro)
+           }
+        })
+    }
+    },[state])
+    
+    const handleChange=(event)=>{
+        setUserData({...userData,[event.target.name]:event.target.value})
+        }
+    const handleSubmit=(e)=>{
+    e.preventDefault();
+    const current=JSON.parse(localStorage.getItem("Current-User"))
+    const users=JSON.parse(localStorage.getItem("Users"))
+    users.forEach((pro)=>{
+        if( pro.email===current.email && pro.password===current.password){
+         pro.name=userData.name;
+         pro.email=userData.email;
+         current.name=userData.name;
+         current.email=userData.email
+        }
+     })
+     login(current)
+     localStorage.setItem("Current-User", JSON.stringify(current))
+     localStorage.setItem("Users", JSON.stringify(users))
+     setUserData({})
+     alert("Profile updated")
+    }
+    
 return(
    <>
    <Navbar/>
@@ -64,7 +110,7 @@ return(
             <div className='profile-2-cont'>
             <div className="p2-name">
                 <h3>Basic</h3>
-                <p className='edit'>Edit</p>
+                <p className='edit'onClick={()=>setViewProfile(!viewProfile)}>Edit</p>
             </div>
             <div className='p2-item'>
             <div className="p2-col1">
@@ -73,7 +119,7 @@ return(
                 <p>Date of Birth</p>
             </div>
             <div className="p2-col2">
-                <p className='p2-box'>Durvesh</p>
+                <p className='p2-box'>{userData?.name}</p>
                 <p className='p2-box' style={{marginTop:"13px",marginBottom:"10px"}}>Nakhawa</p>
                 <p className='p2-box'>06-10-1998</p>
             </div>
@@ -91,7 +137,7 @@ return(
             </div>
             <div className="p2-col2">
                 <p className='p2-box'>+91-8369041343</p>
-                <p className='p2-box' style={{marginTop:"13px"}}>durveshnakhawa27@gmail.com</p>
+                <p className='p2-box' style={{marginTop:"13px"}}>{userData.email}</p>
             </div>
             </div>
             <div className="p2-name">
@@ -121,6 +167,25 @@ return(
         </div>
     </div>
     </div>
+    {
+        viewProfile &&
+    
+    <div>
+    <div className='opacity'></div>
+          <div className='form'>
+        <h2 style={{textAlign:"center"}}>Profile</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Change Name</label><br/>
+        <input type="text" name="name" onChange={handleChange}  className='input'/><br/>
+        <label>Change Email</label><br/>
+        <input type="email" name="email" onChange={handleChange}  className='input' /><br/>
+        <input type='submit' value="Submit"/>
+      </form>
+      <i class="fa-solid fa-xmark form-cross fa-xl"  onClick={()=>setViewProfile(!viewProfile)}></i>
+    </div>
+    </div>
+}
+  
     <Footer/>
     </>
 )

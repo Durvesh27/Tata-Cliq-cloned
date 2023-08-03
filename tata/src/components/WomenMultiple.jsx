@@ -1,8 +1,11 @@
 import './Mens-Multiple-products.css'
 import MensCard from './MensCard'
+import Navbar from './Navbar'
 import SData1 from './SData1'
 const WomenMultiple=()=>{
 return(
+<>
+<Navbar/>
 <div style={{marginTop:"100px"}}>
 <h1 className='main-1'>Suits for Women</h1>
 <p className='main-2'>167460 products</p>
@@ -82,12 +85,13 @@ return(
     <div className="right-section">
         {
             SData1.map((val)=>{
-            return <MensCard imgsrc={val.imgsrc} primary={val.pri} secondary={val.sec} price1={val.price1} price2={val.price2} rating={val.rating} qty={val.qty} priceDisc={val.priceDisc} priceDrop={val.priceDrop} limStock={val.limStocks}/>
+            return <MensCard imgsrc={val.imgsrc} primary={val.pri} secondary={val.sec} price1={val.price1} price2={val.price2} rating={val.rating} qty={val.qty} priceDisc={val.priceDisc} priceDrop={val.priceDrop} limStock={val.limStocks} userId={val.id}/>
             })
         }
     </div>
 </div>
 </div>
+</>
 )
 }
 export default WomenMultiple

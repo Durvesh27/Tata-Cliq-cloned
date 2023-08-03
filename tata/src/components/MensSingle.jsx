@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import './MensSngle.css'
 import Navbar from './Navbar'
 import SData from './SData';
+import SData1 from './SData1';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -20,6 +21,14 @@ useEffect(()=>{
 })
 },[])
 
+useEffect(()=>{
+    SData1.forEach((data1)=>{
+        if(data1?.id==userId){
+        setSingleData(data1)
+    }
+})
+},[])
+// console.log(singleData,"Data")
 
 // useEffect(()=>{
 //   const user=JSON.parse(localStorage.getItem("Current-User"))
@@ -28,7 +37,7 @@ useEffect(()=>{
 //   }
 // },[])
 useEffect(()=>{
-const myUser=JSON.parse(localStorage.getItem("Current"))
+const myUser=JSON.parse(localStorage.getItem("Current-User"))
 setUserEmail(myUser.email)
 },[])
 // useEffect(()=>{
@@ -43,7 +52,7 @@ setUserEmail(myUser.email)
 function addCart(){
     if(userEmail){
         let users=JSON.parse(localStorage.getItem("Users"))
-        let user=JSON.parse(localStorage.getItem("Current"))
+        let user=JSON.parse(localStorage.getItem("Current-User"))
         for(let i=0;i<users.length;i++){
         if(users[i].email===user?.email){
         users[i].cart.push(singleData)

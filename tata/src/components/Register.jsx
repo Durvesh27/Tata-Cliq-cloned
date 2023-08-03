@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react'
 import './Form.css'
-import { Link, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 
-const Register = ({show,setShow,logged,setLogged}) => {
+const Register = ({ show, setShow, logged, setLogged }) => {
     const [userData, setUserData] = useState({ name: "", email: "", password: "" })
     const router = useNavigate();
 
@@ -25,40 +25,43 @@ const Register = ({show,setShow,logged,setLogged}) => {
             array.push(data)
             localStorage.setItem("Users", JSON.stringify(array))
             setUserData({ name: "", email: "", password: "" })
-            router("/login")
+            // router("/login")
+            setShow(!show)
             alert("Account created Successfully")
         } else {
             alert("Please fill all details")
         }
 
     }
-    //     function selectRole(event) {
-    //       setUserData({ ...userData, ["role"]: event.target.value })
-    //       console.log(userData,"usee")
-    //   }
+    // function selectRole(event) {
+    //     setUserData({ ...userData, ["role"]: event.target.value })
+    //     console.log(userData, "usee")
+    // }
 
 
     return (
         <>
-         <div className='opacity'></div>
+            <div className='opacity'></div>
             <div className='form' >
                 {/* <h2 style={{ textAlign: "center" }}>Registeration</h2> */}
-                <h1 style={{textAlign:"center",marginBottom:"30px"}}>Welcome to Tata <br/>CLiQ</h1>
+                <h1 style={{ textAlign: "center", marginBottom: "30px" }}>Welcome to Tata <br />CLiQ</h1>
                 <form onSubmit={handleSubmit}>
-                    
-                    <input type="text" name="name" onChange={handleChange} value={userData.name} className='input' placeholder='Enter your Name'/><br />
-                    {/* <label>Select Role :</label><br /> */}
-                    {/* <select onChange={selectRole}  style={{padding:"5px 0",width:"100%"}}>
-          <option value="Buyer">Buyer</option>
-          <option value="Seller">Seller</option>
-        </select><br /> */}
-                    
+
+                    <input type="text" name="name" onChange={handleChange} value={userData.name} className='input' placeholder='Enter your First Name' /><br />
+                    {/* <input type="text" name="name" onChange={handleChange} value={userData.name} className='input' placeholder='Enter your Last Name'/><br /> */}
+
+
                     <input type="email" name="email" onChange={handleChange} value={userData.email} className='input' placeholder='Enter your Email' /><br />
-                    <input type="password" name="password" onChange={handleChange} value={userData.password} className='input' placeholder='Create your Password'/><br />
+                    <input type="password" name="password" onChange={handleChange} value={userData.password} className='input' placeholder='Create your Password' style={{marginBottom:"15px"}} /><br />
+                    {/* <label style={{ fontSize: "15px" }}>Select Role :</label><br /> */}
+                    {/* <select onChange={selectRole} style={{ padding: "5px 0", width: "100%", margin: "10px 0" }}>
+                        <option value="Buyer">Buyer</option>
+                        <option value="Seller">Seller</option>
+                    </select><br /> */}
                     <input type='submit' value="Register" />
-                    <p style={{ fontSize: "15px", marginTop: "5px", fontWeight: 600 }}>Already have an account? <span onClick={()=>setShow(!show)}>Login</span></p>
+                    <p style={{ fontSize: "15px", marginTop: "5px", fontWeight: 600 }}>Already have an account? <span onClick={() => setShow(!show)}>Login</span></p>
                 </form>
-                <i class="fa-solid fa-xmark form-cross fa-xl" onClick={()=>setLogged(!logged)}></i>
+                <i class="fa-solid fa-xmark form-cross fa-xl" onClick={() => setLogged(!logged)}></i>
             </div>
         </>
 
