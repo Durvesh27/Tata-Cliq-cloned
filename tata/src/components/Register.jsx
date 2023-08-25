@@ -1,71 +1,135 @@
-
-import React, { useState } from 'react'
-import './Form.css'
-import {  useNavigate } from 'react-router-dom'
-
+import React, { useContext, useState } from "react";
+import "./Form.css";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import axios from 'axios'
+import { AuthContext } from "./AuthContext.js";
 const Register = ({ show, setShow, logged, setLogged }) => {
-    const [userData, setUserData] = useState({ name: "", email: "", password: "" })
-    const router = useNavigate();
+const{state}=useContext(AuthContext)
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmedPassword: "",
+    role: "Buyer",
+  });
+  const router = useNavigate();
 
-    const handleChange = (event) => {
-        setUserData({ ...userData, [event.target.name]: event.target.value })
+  const handleChange = (event) => {
+    setUserData({ ...userData, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    if (
+      userData.name &&
+      userData.email &&
+      userData.role &&
+      userData.password &&
+      userData.confirmedPassword
+    ) {
+      if (userData.password === userData.confirmedPassword) {
+      const response=await axios.post("http://localhost:8004/register",{userData})
+      if(response.data.success){
+        setUserData({
+          name: "",
+          email: "",
+          role:"Buyer",
+          password: "",
+          confirmedPassword: "",
+        });
+        setShow(!show)
+        toast.success(response.data.message);
+      }else {
+        toast.error(response.data.message);
+      }
+      }
+      else {
+        toast.error("Password & Confirm Password not matched");
+      }
+    }else{
+      toast.error("All Fields are Compulsory")
     }
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (userData.name && userData.email && userData.password) {
-            const array = JSON.parse(localStorage.getItem("Users")) || [];
-            let data = { name: userData.name, email: userData.email, password: userData.password, cart: [] }
-            for (let i = 0; i < array.length; i++) {
-                if (array[i].name === userData.name) {
-                    setUserData({ name: "", email: "", password: "" })
-                    return alert(`Account already exists`)
-                }
-            }
-            array.push(data)
-            localStorage.setItem("Users", JSON.stringify(array))
-            setUserData({ name: "", email: "", password: "" })
-            // router("/login")
-            setShow(!show)
-            alert("Account created Successfully")
-        } else {
-            alert("Please fill all details")
-        }
-
+  };
+  function selectRole(e){
+  setUserData({...userData,role:e.target.value})
+  }
+  useEffect(()=>{
+    if(state?.user?.name){
+    router("/")
     }
-    // function selectRole(event) {
-    //     setUserData({ ...userData, ["role"]: event.target.value })
-    //     console.log(userData, "usee")
-    // }
+    },[state])
+  return (
+    <>
+      <div className="opacity"></div>
+      <div className="form">
+        {/* <h2 style={{ textAlign: "center" }}>Registeration</h2> */}
+        <h1 style={{ textAlign: "center", marginBottom: "30px" }}>
+          Welcome to Tata <br />
+          CLiQ
+        </h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            onChange={handleChange}
+            value={userData.name}
+            className="input"
+            placeholder="Enter your First Name"
+          />
+          <br />
+          <input
+            type="email"
+            name="email"
+            onChange={handleChange}
+            value={userData.email}
+            className="input"
+            placeholder="Enter your Email"
+            style={{marginBottom:0}}
+          />
+          <br />
+          <select
+            onChange={selectRole}
+            style={{ width: "100%", margin: "25px 0" }}
+            placeholder="Select role"
+            className="input"
+          >
+            <option value="Buyer">Buyer</option>
+            <option value="Seller">Seller</option>
+          </select>
+          <br />
+          <input
+            type="password"
+            name="password"
+            onChange={handleChange}
+            value={userData.password}
+            className="input"
+            placeholder="Create your Password"
+          />
+          <br />
+          <input
+            type="password"
+            name="confirmedPassword"
+            onChange={handleChange}
+            value={userData.confirmedPassword}
+            className="input"
+            placeholder="Confirm your Password"
+          />
+          <br />
+          <input type="submit" value="Register" />
+          <p style={{ fontSize: "15px", marginTop: "5px", fontWeight: 600 }}>
+            Already have an account?{" "}
+            <span onClick={() => setShow(!show)}>Login</span>
+          </p>
+        </form>
+        <i
+          class="fa-solid fa-xmark form-cross fa-xl"
+          onClick={() => setLogged(!logged)}
+        ></i>
+      </div>
+    </>
+  );
+};
 
-
-    return (
-        <>
-            <div className='opacity'></div>
-            <div className='form' >
-                {/* <h2 style={{ textAlign: "center" }}>Registeration</h2> */}
-                <h1 style={{ textAlign: "center", marginBottom: "30px" }}>Welcome to Tata <br />CLiQ</h1>
-                <form onSubmit={handleSubmit}>
-
-                    <input type="text" name="name" onChange={handleChange} value={userData.name} className='input' placeholder='Enter your First Name' /><br />
-                    {/* <input type="text" name="name" onChange={handleChange} value={userData.name} className='input' placeholder='Enter your Last Name'/><br /> */}
-
-
-                    <input type="email" name="email" onChange={handleChange} value={userData.email} className='input' placeholder='Enter your Email' /><br />
-                    <input type="password" name="password" onChange={handleChange} value={userData.password} className='input' placeholder='Create your Password' style={{marginBottom:"15px"}} /><br />
-                    {/* <label style={{ fontSize: "15px" }}>Select Role :</label><br /> */}
-                    {/* <select onChange={selectRole} style={{ padding: "5px 0", width: "100%", margin: "10px 0" }}>
-                        <option value="Buyer">Buyer</option>
-                        <option value="Seller">Seller</option>
-                    </select><br /> */}
-                    <input type='submit' value="Register" />
-                    <p style={{ fontSize: "15px", marginTop: "5px", fontWeight: 600 }}>Already have an account? <span onClick={() => setShow(!show)}>Login</span></p>
-                </form>
-                <i class="fa-solid fa-xmark form-cross fa-xl" onClick={() => setLogged(!logged)}></i>
-            </div>
-        </>
-
-    )
-}
-
-export default Register
+export default Register;
